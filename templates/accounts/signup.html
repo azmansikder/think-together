@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - Think Together</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <div class="brand">THINK TOGETHER</div>
+    <h2>Create Account</h2>
+    <p class="subtitle">Join the research community</p>
+
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags|default:'info' }}">{{ message }}</div>
+    {% endfor %}
+
+    <form method="POST">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="form-group">
+          <label>{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}
+            <small style="color:#e74c3c;">{{ field.errors|join:", " }}</small>
+          {% endif %}
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-primary btn-block" style="margin-top:8px;">Register</button>
+    </form>
+
+    <div class="auth-link">Already have an account? <a href="{% url 'accounts:login' %}">Login</a></div>
+  </div>
+</div>
+</body>
+</html>

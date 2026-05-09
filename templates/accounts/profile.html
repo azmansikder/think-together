@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - Think Together</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <h2>Think Together</h2>
+      <span>{{ request.user.get_role_display }}</span>
+    </div>
+    <nav class="sidebar-nav">
+      {% if request.user.role == 'researcher' %}
+        <a href="{% url 'researchpanel:dashboard' %}"><span class="nav-icon">🏠</span> Dashboard</a>
+        <a href="{% url 'researchpanel:my_research' %}"><span class="nav-icon">📄</span> My Research</a>
+        <a href="{% url 'researchpanel:create_research' %}"><span class="nav-icon">➕</span> Post Research</a>
+        <a href="{% url 'researchpanel:collaborations' %}"><span class="nav-icon">🤝</span> Collaborations</a>
+        <a href="{% url 'researchpanel:messages' %}"><span class="nav-icon">💬</span> Messages</a>
+        <a href="{% url 'researchpanel:notifications' %}"><span class="nav-icon">🔔</span> Notifications</a>
+      {% else %}
+        <a href="{% url 'studentpanel:dashboard' %}"><span class="nav-icon">🏠</span> Dashboard</a>
+        <a href="{% url 'studentpanel:my_projects' %}"><span class="nav-icon">📁</span> My Projects</a>
+        <a href="{% url 'studentpanel:search_research' %}"><span class="nav-icon">🔍</span> Search Research</a>
+        <a href="{% url 'studentpanel:messages' %}"><span class="nav-icon">💬</span> Messages</a>
+        <a href="{% url 'studentpanel:notifications' %}"><span class="nav-icon">🔔</span> Notifications</a>
+      {% endif %}
+      <a href="{% url 'accounts:profile' %}" class="active"><span class="nav-icon">👤</span> Profile</a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="{% url 'accounts:logout' %}">🚪 Logout</a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <h3>My Profile</h3>
+      <div class="topbar-user">
+        <div class="avatar">{{ request.user.first_name|first|upper }}</div>
+        <span>{{ request.user.get_full_name|default:request.user.email }}</span>
+        <span class="badge badge-{% if request.user.role == 'researcher' %}info{% else %}success{% endif %}">{{ request.user.get_role_display }}</span>
+      </div>
+    </div>
+    <div class="page-content">
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags|default:'info' }}">{{ message }}</div>
+      {% endfor %}
+
+      <div class="card">
+        <div class="profile-header">
+          <div class="profile-avatar">
+            {% if request.user.profile_picture %}
+              <img src="{{ request.user.profile_picture.url }}" alt="Profile">
+            {% else %}
+              {{ request.user.first_name|first|upper }}
+            {% endif %}
+          </div>
+          <div>
+            <h3>{{ request.user.get_full_name|default:request.user.email }}</h3>
+            <p style="color:#6c757d; font-size:0.9rem;">{{ request.user.email }}</p>
+            <span class="badge badge-{% if request.user.role == 'researcher' %}info{% else %}success{% endif %}">
+              {{ request.user.get_role_display }}
+            </span>
+          </div>
+        </div>
+        <div class="card-body">
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name</label>
+                {{ form.first_name }}
+              </div>
+              <div class="form-group">
+                <label>Last Name</label>
+                {{ form.last_name }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Bio</label>
+              {{ form.bio }}
+            </div>
+            <div class="form-group">
+              <label>Profile Picture</label>
+              {{ form.profile_picture }}
+            </div>
+            <button type="submit" class="btn btn-primary">Update Profile</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
