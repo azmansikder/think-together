@@ -8,13 +8,13 @@ Think Together is a Django-based collaboration platform designed to bridge the g
 * **Project Management:** Students can create projects, and researchers can post research topics.
 * **Real-time Collaboration:** Built-in messaging system for seamless communication between users.
 
-## 📸 Screenshots
+## 📸 UI/UX
 
 ### User Registration
 Users can join the community by selecting their specific role (Student or Researcher).
 <p align="center">
-  <img src="C:\Users\I dont know\OneDrive\Pictures\Screenshots\student_register.png" width="45%" alt="Student Registration">
-  <img src="C:\Users\I dont know\OneDrive\Pictures\Screenshots\researcher_register.png" width="45%" alt="Researcher Registration">
+  <img src="screenshots/student_register.png" width="45%" alt="Student Registration">
+  <img src="screenshots/researcher_register.png" width="45%" alt="Researcher Registration">
 </p>
 
 ### Custom Dashboards
@@ -25,10 +25,6 @@ Students can manage their projects, browse latest research, and track their save
 #### Researcher Panel
 Researchers can monitor their published posts, total views, and pending collaboration requests.
 ![Researcher Dashboard](screenshots/researcher_dashboard.png)
-
-### Messaging System
-Direct communication interface between students and researchers.
-![Messaging Interface](screenshots/messaging.png)
 
 ## 🛠️ Tech Stack
 * **Backend:** Django (Python)
