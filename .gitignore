@@ -1,0 +1,29 @@
+# Python / Django cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.sqlite3
+
+# Local Database
+db.sqlite3
+
+# Virtual Environments (Your venv folder seems to be named 'source')
+source/
+env/
+venv/
+ENV/
+
+# Environment Variables (Secrets)
+.env
+
+# User-uploaded Media
+media/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
