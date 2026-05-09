@@ -51,14 +51,20 @@ python -m venv env
 env\Scripts\activate
 # On Mac/Linux:
 source env/bin/activate
+
+
 3. **Install dependencies:**
 
 Bash
 pip install -r requirements.txt
+
+
 4. **Apply database migrations:**
 
 Bash
 python manage.py migrate
+
+
 5. **Run the development server:**
 
 Bash
