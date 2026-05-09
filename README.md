@@ -26,7 +26,7 @@ Students can manage their projects, browse latest research, and track their save
 Researchers can monitor their published posts, total views, and pending collaboration requests.
 ![Researcher Dashboard](media/researcher_dashboard.png)
 
-# Think Together 🎓🔬
+# Live UI/UX
 
 Think Together is a Django-based collaboration platform designed to bridge the gap between students and researchers. It allows users to register based on their roles, create and browse research projects, and communicate seamlessly via a built-in messaging system.
 
