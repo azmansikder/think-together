@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Think Together{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <h2>Think Together</h2>
+      <span>Student Panel</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="{% url 'studentpanel:dashboard' %}" {% if request.resolver_match.url_name == 'dashboard' %}class="active"{% endif %}>
+        <span class="nav-icon">🏠</span> Dashboard Home
+      </a>
+      <a href="{% url 'studentpanel:my_projects' %}" {% if request.resolver_match.url_name == 'my_projects' %}class="active"{% endif %}>
+        <span class="nav-icon">📁</span> My Projects
+      </a>
+      <a href="{% url 'studentpanel:create_project' %}" {% if request.resolver_match.url_name == 'create_project' %}class="active"{% endif %}>
+        <span class="nav-icon">➕</span> Create Project
+      </a>
+      <a href="{% url 'studentpanel:my_collaborations' %}" {% if request.resolver_match.url_name == 'my_collaborations' %}class="active"{% endif %}>
+        <span class="nav-icon">🤝</span> Collaborations
+      </a>
+        <a href="{% url 'studentpanel:browse_researchers' %}" {% if request.resolver_match.url_name == 'browse_researchers' %}class="active"{% endif %}>
+        <span class="nav-icon">👨‍🔬</span> Find Researchers
+      </a>
+      <a href="{% url 'studentpanel:search_research' %}" {% if request.resolver_match.url_name == 'search_research' %}class="active"{% endif %}>
+        <span class="nav-icon">🔍</span> Search Research
+      </a>
+      <a href="{% url 'studentpanel:saved_research' %}" {% if request.resolver_match.url_name == 'saved_research' %}class="active"{% endif %}>
+        <span class="nav-icon">🔖</span> Saved Research
+      </a>
+      <a href="{% url 'studentpanel:messages' %}" {% if request.resolver_match.url_name == 'messages' %}class="active"{% endif %}>
+        <span class="nav-icon">💬</span> Messages
+        {% if unread_messages %}<span class="badge-dot">{{ unread_messages }}</span>{% endif %}
+      </a>
+      <a href="{% url 'studentpanel:notifications' %}" {% if request.resolver_match.url_name == 'notifications' %}class="active"{% endif %}>
+        <span class="nav-icon">🔔</span> Notifications
+      </a>
+      <a href="{% url 'accounts:profile' %}" {% if request.resolver_match.url_name == 'profile' %}class="active"{% endif %}>
+        <span class="nav-icon">👤</span> Profile
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="{% url 'accounts:logout' %}">🚪 Logout</a>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="topbar">
+      <h3>{% block page_title %}Dashboard{% endblock %}</h3>
+      <div class="topbar-user">
+        <div class="avatar">{{ request.user.first_name|first|upper }}</div>
+        <span>{{ request.user.get_full_name|default:request.user.email }}</span>
+        <span class="badge badge-success">Student</span>
+      </div>
+    </div>
+    <div class="page-content">
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags|default:'info' }}">{{ message }}</div>
+      {% endfor %}
+      {% block content %}{% endblock %}
+    </div>
+  </div>
+</div>
+</body>
+</html>

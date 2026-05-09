@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Think Together{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <h2>Think Together</h2>
+      <span>Researcher Panel</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="{% url 'researchpanel:dashboard' %}" {% if request.resolver_match.url_name == 'dashboard' %}class="active"{% endif %}>
+        <span class="nav-icon">🏠</span> Dashboard Home
+      </a>
+      <a href="{% url 'researchpanel:my_research' %}" {% if request.resolver_match.url_name == 'my_research' %}class="active"{% endif %}>
+        <span class="nav-icon">📄</span> My Research
+      </a>
+      <a href="{% url 'researchpanel:create_research' %}" {% if request.resolver_match.url_name == 'create_research' %}class="active"{% endif %}>
+        <span class="nav-icon">➕</span> Post Research
+      </a>
+      <a href="{% url 'researchpanel:search_research' %}" {% if request.resolver_match.url_name == 'search_research' %}class="active"{% endif %}>
+        <span class="nav-icon">🔍</span> Browse Research
+      </a>
+      <a href="{% url 'researchpanel:collaborations' %}" {% if request.resolver_match.url_name == 'collaborations' %}class="active"{% endif %}>
+        <span class="nav-icon">🤝</span> Collaborations
+        {% if pending_collabs %}<span class="badge-dot">{{ pending_collabs }}</span>{% endif %}
+      </a>
+      <a href="{% url 'researchpanel:messages' %}" {% if request.resolver_match.url_name == 'messages' %}class="active"{% endif %}>
+        <span class="nav-icon">💬</span> Messages
+        {% if unread_messages %}<span class="badge-dot">{{ unread_messages }}</span>{% endif %}
+      </a>
+      <a href="{% url 'researchpanel:notifications' %}" {% if request.resolver_match.url_name == 'notifications' %}class="active"{% endif %}>
+        <span class="nav-icon">🔔</span> Notifications
+      </a>
+      <a href="{% url 'accounts:profile' %}" {% if request.resolver_match.url_name == 'profile' %}class="active"{% endif %}>
+        <span class="nav-icon">👤</span> Profile
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="{% url 'accounts:logout' %}">🚪 Logout</a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <h3>{% block page_title %}Dashboard{% endblock %}</h3>
+      <div class="topbar-user">
+        <div class="avatar">{{ request.user.first_name|first|upper }}</div>
+        <span>{{ request.user.get_full_name|default:request.user.email }}</span>
+        <span class="badge badge-info">Researcher</span>
+      </div>
+    </div>
+    <div class="page-content">
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags|default:'info' }}">{{ message }}</div>
+      {% endfor %}
+      {% block content %}{% endblock %}
+    </div>
+  </div>
+</div>
+</body>
+</html>
