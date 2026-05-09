@@ -2,7 +2,7 @@
 
 Think Together is a Django-based collaboration platform designed to bridge the gap between students and researchers. It allows users to register based on their roles, create and browse research projects, and communicate seamlessly via a built-in messaging system.
 
-## ✨ Features
+## Features
 * **Role-Based Authentication:** Separate registration and login flows for Students and Researchers.
 * **Custom Dashboards:** Tailored dashboard experiences showing relevant stats (Total Posts, Active Projects, Pending Collaborations).
 * **Project Management:** Students can create projects, and researchers can post research topics.
@@ -32,7 +32,7 @@ Think Together is a Django-based collaboration platform designed to bridge the g
 
 🌐 **Live UI/UX Preview:** [Click here to view the interactive design](https://v0-research-posts.vercel.app/)
 
-## 🛠️ Tech Stack
+## Tech Stack
 * **Backend:** Django (Python)
 * **Frontend:** HTML, CSS, Bootstrap
 * **Database:** SQLite (Development) / PostgreSQL (Production)
