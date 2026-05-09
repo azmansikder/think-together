@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ post.title }} - Think Together</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body style="background:#f4f6f9; padding:30px 20px;">
+<div style="max-width:800px; margin:0 auto;">
+  <a href="javascript:history.back()" class="btn btn-secondary btn-sm" style="margin-bottom:16px;">← Back</a>
+
+  <div class="card">
+    <div class="card-body">
+      <div style="margin-bottom:12px;">
+        <span class="badge badge-info">{{ post.field }}</span>
+        <span style="font-size:0.8rem; color:#999; margin-left:8px;">{{ post.views_count }} views · {{ post.created_at|date:"F d, Y" }}</span>
+      </div>
+      <h1 style="font-size:1.5rem; color:#2c3e50; margin-bottom:10px;">{{ post.title }}</h1>
+      <p style="color:#6c757d; font-size:0.85rem; margin-bottom:16px;">
+        By <strong>{{ post.researcher.first_name }} {{ post.researcher.last_name }}</strong>
+      </p>
+
+      <div style="background:#f8f9fa; border-left:4px solid #4CAF50; padding:14px; border-radius:6px; margin-bottom:20px;">
+        <strong>Abstract</strong>
+        <p style="margin-top:6px; color:#555; font-size:0.9rem; line-height:1.6;">{{ post.abstract }}</p>
+      </div>
+
+      <div style="line-height:1.8; color:#333; font-size:0.92rem; white-space:pre-wrap;">{{ post.content }}</div>
+
+      {% if post.tag_list %}
+      <div style="margin-top:20px; display:flex; gap:8px; flex-wrap:wrap;">
+        {% for tag in post.tag_list %}
+        <span style="background:#e8f5e9; color:#2e7d32; padding:3px 10px; border-radius:12px; font-size:0.78rem;">#{{ tag }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if post.attachment %}
+      <div style="margin-top:20px;">
+        <a href="{{ post.attachment.url }}" class="btn btn-secondary btn-sm" download>📎 Download Attachment</a>
+      </div>
+      {% endif %}
+
+      {% if request.user.is_authenticated and request.user.role == 'student' %}
+      <div style="margin-top:24px; padding-top:20px; border-top:1px solid #dee2e6;">
+        {% if already_requested %}
+        <div class="alert alert-info">✅ You have already requested collaboration on this research.</div>
+        {% else %}
+        <h4 style="margin-bottom:10px;">🤝 Request Collaboration</h4>
+        <form method="POST" action="{% url 'researchpanel:request_collaboration' post.pk %}">
+          {% csrf_token %}
+          <div class="form-group">
+            <textarea name="message" class="form-control" rows="3" placeholder="Briefly describe your interest and skills..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Send Collaboration Request</button>
+        </form>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+</body>
+</html>

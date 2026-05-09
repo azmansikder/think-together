@@ -1,0 +1,48 @@
+{% extends "base/researcher_base.html" %}
+{% block title %}{% if edit %}Edit{% else %}Post{% endif %} Research - Think Together{% endblock %}
+{% block page_title %}{% if edit %}Edit Research{% else %}Post Research{% endif %}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h2>{% if edit %}✏️ Edit Research Post{% else %}➕ New Research Post{% endif %}</h2>
+  <a href="{% url 'researchpanel:my_research' %}" class="btn btn-secondary">← Back</a>
+</div>
+
+<div class="form-card" style="max-width:800px;">
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+      <label>Title</label>
+      {{ form.title }}
+      {% if form.title.errors %}<small style="color:#e74c3c;">{{ form.title.errors|join:", " }}</small>{% endif %}
+    </div>
+    <div class="form-group">
+      <label>Abstract</label>
+      {{ form.abstract }}
+    </div>
+    <div class="form-group">
+      <label>Full Content</label>
+      {{ form.content }}
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Field / Domain</label>
+        {{ form.field }}
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        {{ form.status }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Tags <small style="color:#999;">(comma-separated)</small></label>
+      {{ form.tags }}
+    </div>
+    <div class="form-group">
+      <label>Attachment <small style="color:#999;">(PDF, DOC, etc.)</small></label>
+      {{ form.attachment }}
+    </div>
+    <button type="submit" class="btn btn-primary">{% if edit %}Update Post{% else %}Publish Post{% endif %}</button>
+  </form>
+</div>
+{% endblock %}

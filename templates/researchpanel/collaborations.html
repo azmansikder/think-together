@@ -1,0 +1,52 @@
+{% extends "base/researcher_base.html" %}
+{% block title %}Collaborations - Think Together{% endblock %}
+{% block page_title %}Collaboration Requests{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h2>🤝 Collaboration Requests</h2>
+</div>
+
+<div class="card">
+  {% if collabs %}
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Student</th><th>Research</th><th>Message</th><th>Status</th><th>Date</th><th>Actions</th></tr>
+      </thead>
+      <tbody>
+        {% for c in collabs %}
+        <tr>
+          <td>
+            <strong>{{ c.student.first_name }} {{ c.student.last_name }}</strong><br>
+            <small style="color:#999;">{{ c.student.email }}</small>
+          </td>
+          <td>{{ c.topic|truncatewords:6 }}</td>
+          <td>{{ c.message|truncatewords:10|default:"—" }}</td>
+          <td>
+            <span class="badge badge-{% if c.status == 'accepted' %}success{% elif c.status == 'rejected' %}danger{% else %}warning{% endif %}">
+              {{ c.get_status_display }}
+            </span>
+          </td>
+          <td>{{ c.created_at|date:"M d, Y" }}</td>
+          <td>
+            {% if c.status == 'pending' %}
+            <a href="{% url 'researchpanel:update_collab' c.pk 'accept' %}" class="btn btn-sm btn-primary">Accept</a>
+            <a href="{% url 'researchpanel:update_collab' c.pk 'reject' %}" class="btn btn-sm btn-danger">Reject</a>
+            {% else %}
+            <span style="color:#999; font-size:0.82rem;">No actions</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <div class="icon">🤝</div>
+    <p>No collaboration requests yet.</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

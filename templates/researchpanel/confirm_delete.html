@@ -1,0 +1,16 @@
+{% extends "base/researcher_base.html" %}
+{% block title %}Confirm Delete{% endblock %}
+{% block page_title %}Delete Research{% endblock %}
+
+{% block content %}
+<div class="form-card" style="text-align:center; max-width:450px; margin:40px auto;">
+  <div style="font-size:3rem; margin-bottom:16px;">🗑️</div>
+  <h3 style="color:#2c3e50; margin-bottom:10px;">Delete "{{ post.title }}"?</h3>
+  <p style="color:#6c757d; margin-bottom:24px;">This will permanently remove the research post and all collaboration requests.</p>
+  <form method="POST" style="display:flex; gap:12px; justify-content:center;">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a href="{% url 'researchpanel:my_research' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+{% endblock %}
