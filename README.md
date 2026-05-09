@@ -58,3 +58,6 @@ python manage.py migrate
 Bash
 python manage.py runserver
 Open http://127.0.0.1:8000/ in your browser.
+
+## ⚖️ License
+**All Rights Reserved.** You are free to view and fork this repository per GitHub's Terms of Service. However, downloading, modifying, or distributing this code without explicit permission from the author is strictly prohibited. See the `LICENSE` file for more details.
