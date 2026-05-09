@@ -41,7 +41,7 @@ Think Together is a Django-based collaboration platform designed to bridge the g
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/yourusername/think-together.git](https://github.com/yourusername/think-together.git)
+   git clone [https://github.com/azmansikder/think-together.git](https://github.com/azmansikder/think-together.git)
    cd think-together
 2. **Create and activate a virtual environment:**
 
