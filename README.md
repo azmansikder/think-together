@@ -17,6 +17,12 @@ Users can join the community by selecting their specific role (Student or Resear
   <img src="media/researcher_register.png" width="45%" alt="Researcher Registration">
 </p>
 
+# Think Together 🎓🔬
+
+Think Together is a Django-based collaboration platform designed to bridge the gap between students and researchers. It allows users to register based on their roles, create and browse research projects, and communicate seamlessly via a built-in messaging system.
+
+🌐 **Live UI/UX Preview:** [Click here to view the interactive design](https://v0-research-posts.vercel.app/)
+
 ### Custom Dashboards
 #### Student Panel
 Students can manage their projects, browse latest research, and track their saved items.
