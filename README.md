@@ -1,4 +1,4 @@
-# Think Together 🎓🔬
+# Think Together
 
 Think Together is a Django-based collaboration platform designed to bridge the gap between students and researchers. It allows users to register based on their roles, create and browse research projects, and communicate seamlessly via a built-in messaging system.
 
@@ -8,7 +8,7 @@ Think Together is a Django-based collaboration platform designed to bridge the g
 * **Project Management:** Students can create projects, and researchers can post research topics.
 * **Real-time Collaboration:** Built-in messaging system for seamless communication between users.
 
-## 📸 UI/UX
+## UI/UX
 
 ### User Registration
 Users can join the community by selecting their specific role (Student or Researcher).
@@ -37,7 +37,7 @@ Think Together is a Django-based collaboration platform designed to bridge the g
 * **Frontend:** HTML, CSS, Bootstrap
 * **Database:** SQLite (Development) / PostgreSQL (Production)
 
-## 🚀 Local Setup Instructions
+## Local Setup Instructions
 
 1. **Clone the repository:**
    ```bash
@@ -71,5 +71,5 @@ Bash
 python manage.py runserver
 Open http://127.0.0.1:8000/ in your browser.
 
-## ⚖️ License
+## License
 **All Rights Reserved.** You are free to view and fork this repository per GitHub's Terms of Service. However, downloading, modifying, or distributing this code without explicit permission from the author is strictly prohibited. See the `LICENSE` file for more details.
