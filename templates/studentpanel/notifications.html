@@ -1,0 +1,33 @@
+{% extends "base/student_base.html" %}
+{% block title %}Notifications - Think Together{% endblock %}
+{% block page_title %}Notifications{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h2>🔔 Notifications</h2>
+</div>
+
+<div class="card">
+  {% if messages_list %}
+  <div class="table-wrapper">
+    <table>
+      <thead><tr><th>From</th><th>Message Preview</th><th>Time</th></tr></thead>
+      <tbody>
+        {% for msg in messages_list %}
+        <tr>
+          <td><strong>{{ msg.sender.first_name }} {{ msg.sender.last_name }}</strong><br><small style="color:#999;">{{ msg.sender.role }}</small></td>
+          <td>{{ msg.content|truncatewords:12 }}</td>
+          <td>{{ msg.created_at|date:"M d, H:i" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <div class="icon">🔔</div>
+    <p>No new notifications.</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

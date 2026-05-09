@@ -1,0 +1,16 @@
+{% extends "base/student_base.html" %}
+{% block page_title %}Find Researchers{% endblock %}
+{% block content %}
+<div class="page-header"><h2>👨‍🔬 Registered Researchers</h2></div>
+<div class="research-grid">
+  {% for r in researchers %}
+  <div class="research-card">
+    <h4>{{ r.get_full_name }}</h4>
+    <p style="color:#6c757d;">{{ r.email }}</p>
+    <a href="{% url 'studentpanel:request_collaboration' r.pk %}" class="btn btn-primary" style="margin-top:10px;">Send Request</a>
+  </div>
+  {% empty %}
+  <p>No researchers registered yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base/student_base.html" %}
+{% block title %}My Collaboration Requests{% endblock %}
+{% block page_title %}Collaborations{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h2>🤝 My Collaboration Requests</h2>
+</div>
+
+<div class="card">
+  {% if collabs %}
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Research Title</th>
+          <th>Researcher</th>
+          <th>Status</th>
+          <th>Date Sent</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in collabs %}
+        <tr>
+          <td><strong>{{ c.topic }}</strong></td>
+          <td>{{ c.researcher.get_full_name }}</td>
+          <td>
+            <span class="badge badge-{% if c.status == 'accepted' %}success{% elif c.status == 'rejected' %}danger{% else %}warning{% endif %}">
+              {{ c.get_status_display }}
+            </span>
+          </td>
+          <td>{{ c.created_at|date:"M d, Y" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <div class="icon">🤝</div>
+    <p>You haven't requested any collaborations yet.</p>
+    <a href="{% url 'studentpanel:search_research' %}" class="btn btn-primary">Browse Research</a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

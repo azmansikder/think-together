@@ -1,0 +1,36 @@
+{% extends "base/student_base.html" %}
+{% block title %}{% if edit %}Edit{% else %}Create{% endif %} Project - Think Together{% endblock %}
+{% block page_title %}{% if edit %}Edit Project{% else %}Create Project{% endif %}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h2>{% if edit %}✏️ Edit Project{% else %}➕ Create New Project{% endif %}</h2>
+  <a href="{% url 'studentpanel:my_projects' %}" class="btn btn-secondary">← Back</a>
+</div>
+
+<div class="form-card">
+  <form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <label>Project Title</label>
+      {{ form.title }}
+      {% if form.title.errors %}<small style="color:#e74c3c;">{{ form.title.errors|join:", " }}</small>{% endif %}
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Field / Domain</label>
+        {{ form.field }}
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        {{ form.status }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      {{ form.description }}
+    </div>
+    <button type="submit" class="btn btn-primary">{% if edit %}Update Project{% else %}Create Project{% endif %}</button>
+  </form>
+</div>
+{% endblock %}

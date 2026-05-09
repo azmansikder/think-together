@@ -1,0 +1,41 @@
+{% extends "base/student_base.html" %}
+{% block title %}My Projects - Think Together{% endblock %}
+{% block page_title %}My Projects{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h2>📁 My Projects</h2>
+  <a href="{% url 'studentpanel:create_project' %}" class="btn btn-primary">+ Create Project</a>
+</div>
+
+<div class="card">
+  {% if projects %}
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Title</th><th>Field</th><th>Status</th><th>Updated</th><th>Actions</th></tr>
+      </thead>
+      <tbody>
+        {% for p in projects %}
+        <tr>
+          <td><strong>{{ p.title }}</strong><br><small style="color:#999;">{{ p.description|truncatewords:10 }}</small></td>
+          <td>{{ p.field }}</td>
+          <td><span class="badge badge-{% if p.status == 'ongoing' %}success{% elif p.status == 'completed' %}info{% else %}warning{% endif %}">{{ p.get_status_display }}</span></td>
+          <td>{{ p.updated_at|date:"M d, Y" }}</td>
+          <td>
+            <a href="{% url 'studentpanel:edit_project' p.pk %}" class="btn btn-sm btn-warning">Edit</a>
+            <a href="{% url 'studentpanel:delete_project' p.pk %}" class="btn btn-sm btn-danger">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <div class="icon">📁</div>
+    <p>You have no projects yet. <a href="{% url 'studentpanel:create_project' %}">Create one!</a></p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

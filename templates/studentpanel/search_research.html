@@ -1,0 +1,47 @@
+{% extends "base/student_base.html" %}
+{% block title %}Search Research - Think Together{% endblock %}
+{% block page_title %}Search Research{% endblock %}
+
+{% block content %}
+<div class="card" style="padding:20px; margin-bottom:20px;">
+  <form method="GET" style="display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap;">
+    <div class="form-group" style="flex:1; min-width:200px; margin:0;">
+      <label>Search Keyword</label>
+      <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="Title, abstract, tags...">
+    </div>
+    <div class="form-group" style="flex:1; min-width:160px; margin:0;">
+      <label>Field</label>
+      <input type="text" name="field" value="{{ field }}" class="form-control" placeholder="e.g. AI, Biology">
+    </div>
+    <button type="submit" class="btn btn-primary" style="height:40px;">🔍 Search</button>
+  </form>
+</div>
+
+<div class="page-header">
+  <h2>🔬 Research Posts {% if results %}<small style="font-size:0.85rem; color:#999;">({{ results|length }} found)</small>{% endif %}</h2>
+</div>
+
+{% if results %}
+<div class="research-grid">
+  {% for r in results %}
+  <div class="research-card">
+    <h4>{{ r.title }}</h4>
+    <p>{{ r.abstract|truncatewords:25 }}</p>
+    <div class="meta">
+      <span class="field-tag">{{ r.field }}</span>
+      <span style="font-size:0.75rem;color:#999;">by {{ r.researcher.first_name }}</span>
+    </div>
+    <div style="margin-top:12px; display:flex; gap:8px;">
+      <a href="{% url 'researchpanel:research_detail' r.pk %}" class="btn btn-sm btn-info">View</a>
+      <a href="{% url 'studentpanel:save_research' r.pk %}" class="btn btn-sm btn-secondary">🔖 Save</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+  <div class="icon">🔬</div>
+  <p>{% if query %}No results found for "{{ query }}".{% else %}No published research available yet.{% endif %}</p>
+</div>
+{% endif %}
+{% endblock %}

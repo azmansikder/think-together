@@ -1,0 +1,32 @@
+{% extends "base/student_base.html" %}
+{% block title %}Saved Research - Think Together{% endblock %}
+{% block page_title %}Saved Research{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h2>🔖 Saved Research</h2>
+</div>
+
+{% if saved %}
+<div class="research-grid">
+  {% for s in saved %}
+  <div class="research-card">
+    <h4>{{ s.research.title }}</h4>
+    <p>{{ s.research.abstract|truncatewords:20 }}</p>
+    <div class="meta">
+      <span class="field-tag">{{ s.research.field }}</span>
+      <span style="font-size:0.75rem; color:#999;">Saved {{ s.saved_at|date:"M d, Y" }}</span>
+    </div>
+    <div style="margin-top:12px;">
+      <a href="{% url 'researchpanel:research_detail' s.research.pk %}" class="btn btn-sm btn-info">View</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+  <div class="icon">🔖</div>
+  <p>No saved research yet. <a href="{% url 'studentpanel:search_research' %}">Browse research</a> to save items.</p>
+</div>
+{% endif %}
+{% endblock %}

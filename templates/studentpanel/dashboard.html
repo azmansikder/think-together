@@ -1,0 +1,91 @@
+{% extends "base/student_base.html" %}
+{% block title %}Dashboard - Think Together{% endblock %}
+{% block page_title %}Dashboard Home{% endblock %}
+
+{% block content %}
+<!-- Stats -->
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-icon green">📁</div>
+    <div class="stat-info">
+      <div class="number">{{ total_projects }}</div>
+      <div class="label">My Projects</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon blue">🔖</div>
+    <div class="stat-info">
+      <div class="number">{{ saved_count }}</div>
+      <div class="label">Saved Research</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon orange">💬</div>
+    <div class="stat-info">
+      <div class="number">{{ unread_messages }}</div>
+      <div class="label">Unread Messages</div>
+    </div>
+  </div>
+</div>
+
+<!-- My Projects -->
+<div class="card">
+  <div class="card-header">
+    <h4>📁 Recent Projects</h4>
+    <a href="{% url 'studentpanel:create_project' %}" class="btn btn-primary btn-sm">+ New Project</a>
+  </div>
+  <div class="card-body" style="padding:0;">
+    {% if projects %}
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Title</th><th>Field</th><th>Status</th><th>Created</th></tr></thead>
+        <tbody>
+          {% for p in projects %}
+          <tr>
+            <td><strong>{{ p.title }}</strong></td>
+            <td>{{ p.field }}</td>
+            <td><span class="badge badge-{% if p.status == 'ongoing' %}success{% elif p.status == 'completed' %}info{% else %}warning{% endif %}">{{ p.get_status_display }}</span></td>
+            <td>{{ p.created_at|date:"M d, Y" }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <div class="icon">📁</div>
+      <p>No projects yet. <a href="{% url 'studentpanel:create_project' %}">Create your first project</a></p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Recent Research -->
+<div class="card">
+  <div class="card-header">
+    <h4>🔬 Latest Research</h4>
+    <a href="{% url 'studentpanel:search_research' %}" class="btn btn-secondary btn-sm">Browse All</a>
+  </div>
+  <div class="card-body">
+    {% if recent_research %}
+    <div class="research-grid">
+      {% for r in recent_research %}
+      <div class="research-card">
+        <h4>{{ r.title }}</h4>
+        <p>{{ r.abstract|truncatewords:20 }}</p>
+        <div class="meta">
+          <span class="field-tag">{{ r.field }}</span>
+          <span style="font-size:0.75rem; color:#999; margin-left:auto;">{{ r.created_at|date:"M d" }}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <div class="icon">🔬</div>
+      <p>No research posts available yet.</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

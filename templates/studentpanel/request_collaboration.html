@@ -1,0 +1,19 @@
+{% extends "base/student_base.html" %}
+{% block content %}
+<div class="form-card" style="max-width:600px;">
+  <h2>Request Collaboration</h2>
+  <p style="color:#6c757d; margin-bottom:20px;">Send your idea to <strong>{{ researcher.get_full_name }}</strong></p>
+  <form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <label>Proposed Topic / Idea</label>
+      <input type="text" name="topic" class="form-control" placeholder="e.g. AI in Healthcare" required>
+    </div>
+    <div class="form-group">
+      <label>Message (Your skills & plan)</label>
+      <textarea name="message" class="form-control" rows="5" placeholder="Briefly describe what you want to do..." required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit Request</button>
+  </form>
+</div>
+{% endblock %}
