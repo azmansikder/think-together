@@ -1,2 +1,15 @@
+# ──────────────────────────────────────────
+# Think Together – Python Dependencies
+# ──────────────────────────────────────────
+
+# Core Framework
 Django>=4.2,<5.0
+
+# Image handling (profile pictures, attachments)
 Pillow>=10.0
+
+# PostgreSQL adapter (used in production; safe to install locally too)
+psycopg2-binary>=2.9
+
+# Environment variable management (recommended for SECRET_KEY, DB creds)
+python-dotenv>=1.0
